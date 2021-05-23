@@ -7,12 +7,13 @@ namespace Source.Controllers
 {
     public class BulletBoundsController : MonoBehaviour
     {
-        public Bounds bounds;
-
         private readonly List<BulletComponent> _bulletComponents = new List<BulletComponent>();
+        private BoundsComponent _boundsComponent;
 
         private void Awake()
         {
+            this.AutoFindComponent(out _boundsComponent);
+
             EventPool.OnBulletSpawned.AddListener(OnBulletSpawned);
             EventPool.OnBulletDestroyed.AddListener(OnBulletDestroyed);
             EventPool.OnGameStarted.AddListener(OnGameStarted);
@@ -31,7 +32,7 @@ namespace Source.Controllers
         private void Update()
         {
             foreach (var bullet in _bulletComponents)
-                if (!bounds.Contains(bullet.transform.position))
+                if (!_boundsComponent.Bounds.Contains(bullet.transform.position))
                     Destroy(bullet.gameObject);
         }
 

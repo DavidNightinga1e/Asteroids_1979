@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class PlayerBoundsController : MonoBehaviour
 {
-    public Bounds bounds;
-
+    private BoundsComponent _boundsComponent;
     private PlayerComponent _playerComponent;
 
     private void Awake()
     {
         this.AutoFindComponent(out _playerComponent);
+        this.AutoFindComponent(out _boundsComponent);
     }
 
     private void Update()
     {
-        if (!bounds.Contains(_playerComponent.transform.position)) 
+        if (!_boundsComponent.Bounds.Contains(_playerComponent.transform.position))
             EventPool.OnPlayerDestroyed.Invoke();
     }
 }
