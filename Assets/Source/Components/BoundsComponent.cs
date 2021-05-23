@@ -1,5 +1,4 @@
-﻿using System;
-using Source.Common;
+﻿using Source.Common;
 using UnityEngine;
 
 namespace Source.Components

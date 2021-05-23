@@ -39,6 +39,7 @@ namespace Source.Controllers
 
         private void OnGameStarted()
         {
+            _playerComponent.gameObject.SetActive(true);
             MoveToSpawn();
         }
 

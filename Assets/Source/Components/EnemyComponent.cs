@@ -1,5 +1,4 @@
-﻿using System;
-using Source.Events;
+﻿using Source.Events;
 using UnityEngine;
 
 namespace Source.Components
@@ -8,7 +7,8 @@ namespace Source.Components
     {
         private void OnCollisionEnter2D(Collision2D other)
         {
-            EventPool.OnEnemyDestroyed.Invoke(this);
+            if (other.gameObject.layer == LayerMask.NameToLayer("Bullet")) 
+                EventPool.OnEnemyHit.Invoke(this);
         }
 
         private void OnDestroy()

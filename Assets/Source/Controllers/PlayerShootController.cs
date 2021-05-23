@@ -15,15 +15,19 @@ namespace Source.Controllers
 
         private PlayerComponent _playerComponent;
         private bool _isReady = true;
+        private bool _isGameStarted;
 
         private void Awake()
         {
             this.AutoFindComponent(out _playerComponent);
+
+            EventPool.OnGameStarted.AddListener(() => _isGameStarted = true);
+            EventPool.OnGameOver.AddListener(() => _isGameStarted = false);
         }
 
         private void Update()
         {
-            if (Input.GetButton("Fire") && _isReady)
+            if (Input.GetButton("Fire") && _isReady && _isGameStarted)
                 Fire();
         }
 
@@ -38,7 +42,7 @@ namespace Source.Controllers
             var bulletComponent = instance.GetComponent<BulletComponent>();
             bulletComponent.TargetRigidbody2D.AddForce(bulletComponent.transform.up * shootImpulse,
                 ForceMode2D.Impulse);
-            
+
             EventPool.OnBulletSpawned.Invoke(bulletComponent);
         }
 

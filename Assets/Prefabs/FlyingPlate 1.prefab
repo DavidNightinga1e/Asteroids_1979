@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: aec5b9abaa96dfc4aabb64f0a4dc86a2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d08ef0478a7ddc447ae4ffda1a235636, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -138,22 +138,22 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 1.0203772, y: -0.55988646}
-      - {x: 1.0368395, y: 0.22577548}
-      - {x: 0.86026764, y: 0.51868004}
-      - {x: 0.6495638, y: 0.5507546}
-      - {x: 0.27814865, y: 0.25243872}
-      - {x: 0.3700552, y: 0.91007775}
-      - {x: -0.05707836, y: 1.1005218}
-      - {x: -0.43976116, y: 1.0191152}
-      - {x: -0.34055138, y: 0.45684895}
-      - {x: -0.8027172, y: 0.20275137}
-      - {x: -1.0743465, y: -0.34716922}
-      - {x: -0.94432545, y: -0.7520816}
-      - {x: -0.43400884, y: -0.9133073}
-      - {x: 0.16716099, y: -0.98179716}
-      - {x: 0.6951208, y: -1.0656202}
-      - {x: 0.8850425, y: -0.9069556}
+    - - {x: 0.88151264, y: -0.7964704}
+      - {x: 1.1232023, y: -0.35678124}
+      - {x: 1.152743, y: -0.21214259}
+      - {x: 1.0946054, y: 0.0124659175}
+      - {x: 0.77343845, y: 0.19099557}
+      - {x: 0.63432026, y: 0.5857867}
+      - {x: 0.3486481, y: 0.86067885}
+      - {x: -0.022571564, y: 0.8636363}
+      - {x: -0.246459, y: 0.71578515}
+      - {x: -0.5105276, y: 0.24574184}
+      - {x: -0.8168373, y: 0.25614536}
+      - {x: -1.1898744, y: -0.13940543}
+      - {x: -0.81143856, y: -0.6119561}
+      - {x: -0.79580206, y: -0.6455474}
+      - {x: -0.39800763, y: -0.7795859}
+      - {x: 0.117046356, y: -0.8415114}
 --- !u!1 &39639146465855878
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,9 +164,9 @@ GameObject:
   m_Component:
   - component: {fileID: 39639146465855879}
   - component: {fileID: 39639146465855877}
-  - component: {fileID: 4677752069546288797}
+  - component: {fileID: 6157030026551891189}
   m_Layer: 7
-  m_Name: Asteroid 2
+  m_Name: FlyingPlate 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -209,7 +209,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4677752069546288797
+--- !u!114 &6157030026551891189
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 39639146465855878}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3780fa7670d4181b4200fdebd788c8c, type: 3}
+  m_Script: {fileID: 11500000, guid: abc3f84a1f914c83a441397a372a976f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetRigidbody2D: {fileID: 39639146465855877}

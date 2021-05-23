@@ -28,7 +28,7 @@ namespace Source.Controllers
         private void OnPlayerDestroyed()
         {
             _currentLives--;
-            if (_currentLives < 0)
+            if (_currentLives < 1)
                 EventPool.OnGameOver.Invoke();
             
             UpdateLivesDisplay();

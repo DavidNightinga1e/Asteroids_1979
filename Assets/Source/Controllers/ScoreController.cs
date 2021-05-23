@@ -1,5 +1,4 @@
-﻿using System;
-using Source.Components;
+﻿using Source.Components;
 using Source.Events;
 using UnityEngine;
 
@@ -9,25 +8,38 @@ namespace Source.Controllers
     {
         private ScoreComponent _scoreComponent;
 
-        private int _currentScore;
-        
         private void Awake()
         {
             this.AutoFindComponent(out _scoreComponent);
-            
-            EventPool.OnEnemyDestroyed.AddListener(OnEnemyHit);
+
+            EventPool.OnEnemyHit.AddListener(OnEnemyHit);
             EventPool.OnGameStarted.AddListener(OnGameStarted);
         }
 
         private void OnGameStarted()
         {
-            _currentScore = 0;
+            _scoreComponent.currentScore = 0;
+            UpdateText();
+        }
+
+        private void UpdateText()
+        {
+            _scoreComponent.TextMeshPro.text = $"Score: {_scoreComponent.currentScore:000000}";
         }
 
         private void OnEnemyHit(EnemyComponent enemyComponent)
         {
-            _currentScore += 200; // todo add dependencies 
-            _scoreComponent.TextMeshPro.text = $"Score: {_currentScore:000000}";
+            switch (enemyComponent)
+            {
+                case AsteroidComponent asteroidComponent:
+                    _scoreComponent.currentScore += 400 - 100 * asteroidComponent.Size;
+                    break;
+                case FlyingPlateComponent _:
+                    _scoreComponent.currentScore += 800;
+                    break;
+            }
+
+            UpdateText();
         }
     }
 }
