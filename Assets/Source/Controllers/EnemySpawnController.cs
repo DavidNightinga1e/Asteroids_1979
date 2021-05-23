@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using Source.Components;
+using Source.Events;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Source.Controllers
@@ -10,9 +12,10 @@ namespace Source.Controllers
     public class EnemySpawnController : MonoBehaviour
     {
         public Vector2 enemySpawnExtents;
-        public List<EnemyComponent> enemyPrefabs;
+        public List<AsteroidComponent> asteroidPrefabs;
 
-        public float defaultSpawnCooldown = 1f;
+        public readonly List<float> AsteroidSizes = new List<float> {1, 1.5f, 2f};
+
         public float currentSpawnCooldown = 1f;
         public float minForce = 50f;
         public float maxForce = 450f;
@@ -37,15 +40,18 @@ namespace Source.Controllers
                     currentSpawnCooldown + SpawnDispersion);
                 yield return new WaitForSeconds(waitTime);
                 var (point, rotation) = RandomPointAndDirectionOnBounds();
-                var enemyType = Random.Range(0, enemyPrefabs.Count);
+                var enemyType = Random.Range(0, asteroidPrefabs.Count);
                 var instance = Instantiate(
-                    enemyPrefabs[enemyType].gameObject,
+                    asteroidPrefabs[enemyType].gameObject,
                     point,
                     Quaternion.Euler(0, 0, rotation));
-                var enemyComponent = instance.GetComponent<EnemyComponent>();
-                enemyComponent.TargetRigidbody2D.AddForce(
-                    enemyComponent.transform.up * Random.Range(minForce, maxForce));
-                enemyComponent.TargetRigidbody2D.AddTorque(Random.Range(minTorque, maxTorque));
+                var asteroidComponent = instance.GetComponent<AsteroidComponent>();
+                asteroidComponent.TargetRigidbody2D.AddForce(
+                    asteroidComponent.transform.up * Random.Range(minForce, maxForce));
+                asteroidComponent.TargetRigidbody2D.AddTorque(Random.Range(minTorque, maxTorque));
+                asteroidComponent.size = Random.Range(0, AsteroidSizes.Count);
+                asteroidComponent.transform.localScale = Vector3.one * AsteroidSizes[asteroidComponent.size];
+                EventPool.OnEnemySpawned.Invoke(asteroidComponent);
             }
         }
 
@@ -71,7 +77,7 @@ namespace Source.Controllers
                 3 => 0,
                 _ => throw new Exception()
             };
-            
+
             return (point, direction);
         }
     }

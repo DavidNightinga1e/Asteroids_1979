@@ -15,7 +15,7 @@ namespace Source.Controllers
         {
             this.AutoFindComponent(out _scoreComponent);
             
-            EventPool.OnEnemyHit.AddListener(OnEnemyHit);
+            EventPool.OnEnemyDestroyed.AddListener(OnEnemyHit);
             EventPool.OnGameStarted.AddListener(OnGameStarted);
         }
 

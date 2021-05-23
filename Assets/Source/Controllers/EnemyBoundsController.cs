@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Source.Components;
 using Source.Events;
 using UnityEngine;
-using UnityEngine.TestTools;
 
 namespace Source.Controllers
 {
@@ -18,6 +16,12 @@ namespace Source.Controllers
 
             EventPool.OnEnemySpawned.AddListener(OnEnemySpawned);
             EventPool.OnGameStarted.AddListener(OnGameStarted);
+            EventPool.OnEnemyDestroyed.AddListener(OnEnemyDestroyed);
+        }
+
+        private void OnEnemyDestroyed(EnemyComponent arg0)
+        {
+            _enemyComponents.Remove(arg0);
         }
 
         private void OnGameStarted()

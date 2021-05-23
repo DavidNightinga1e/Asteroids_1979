@@ -1,4 +1,5 @@
-﻿using Source.Events;
+﻿using System;
+using Source.Events;
 using UnityEngine;
 
 namespace Source.Components
@@ -7,7 +8,12 @@ namespace Source.Components
     {
         private void OnCollisionEnter2D(Collision2D other)
         {
-            EventPool.OnEnemyHit.Invoke(this);
+            EventPool.OnEnemyDestroyed.Invoke(this);
+        }
+
+        private void OnDestroy()
+        {
+            EventPool.OnEnemyDestroyed.Invoke(this);
         }
     }
 }

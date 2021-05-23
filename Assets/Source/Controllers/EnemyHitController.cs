@@ -8,10 +8,10 @@ namespace Source.Controllers
     {
         private void Awake()
         {
-            EventPool.OnEnemyHit.AddListener(OnEnemyHit);
+            EventPool.OnEnemyDestroyed.AddListener(OnEnemyDestroyed);
         }
 
-        private void OnEnemyHit(EnemyComponent enemyComponent)
+        private void OnEnemyDestroyed(EnemyComponent enemyComponent)
         {
             Destroy(enemyComponent.gameObject);
         }

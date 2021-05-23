@@ -2,5 +2,6 @@
 {
     public class AsteroidComponent : EnemyComponent
     {
+        public int size;
     }
 }

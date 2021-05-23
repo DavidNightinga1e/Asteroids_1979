@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 7483126}
   - component: {fileID: 7483125}
   - component: {fileID: 7483124}
+  - component: {fileID: 7483127}
   m_Layer: 0
   m_Name: Enemies
   m_TagString: Untagged
@@ -181,13 +182,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpawnExtents: {x: 44.444443, y: 25}
-  enemyPrefabs:
+  asteroidPrefabs:
   - {fileID: 3639077609248428538, guid: 43d957803c2912641812f925657e6765, type: 3}
   - {fileID: 4677752069546288797, guid: eb06021f5432794479f975c5116cca16, type: 3}
   - {fileID: 4677752069546288797, guid: 67200c5402da4054a9eef9c08992114d, type: 3}
   - {fileID: 4677752069546288797, guid: 1c4caa74b9071c3499d145d669651a4b, type: 3}
   - {fileID: 4677752069546288797, guid: fb4d5c8728ed0eb47ab19cc0ccd3feb5, type: 3}
-  defaultSpawnCooldown: 1
   currentSpawnCooldown: 1
   minForce: 50
   maxForce: 450
@@ -205,6 +205,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8431035c46d34e248bcd3c29ff9b6bbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7483127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7483122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cf0ff3863d342d590b66d3f4f115044, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  asteroidPrefabs:
+  - {fileID: 3639077609248428538, guid: 43d957803c2912641812f925657e6765, type: 3}
+  - {fileID: 4677752069546288797, guid: eb06021f5432794479f975c5116cca16, type: 3}
+  - {fileID: 4677752069546288797, guid: 67200c5402da4054a9eef9c08992114d, type: 3}
+  - {fileID: 4677752069546288797, guid: 1c4caa74b9071c3499d145d669651a4b, type: 3}
+  - {fileID: 4677752069546288797, guid: fb4d5c8728ed0eb47ab19cc0ccd3feb5, type: 3}
+  minForce: 50
+  maxForce: 450
+  minTorque: 10
+  maxTorque: 360
 --- !u!1 &110804240
 GameObject:
   m_ObjectHideFlags: 0
