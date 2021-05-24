@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Source.Components;
 using Source.Events;
-using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -70,7 +69,7 @@ namespace Source.Controllers
                 var instance = Instantiate(
                     _settings.flyingPlatePrefabs[i].gameObject,
                     point,
-                    quaternion.identity);
+                    Quaternion.identity);
                 var flyingPlateComponent = instance.GetComponent<FlyingPlateComponent>();
                 EventPool.OnEnemySpawned.Invoke(flyingPlateComponent);
             }
