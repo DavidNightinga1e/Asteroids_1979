@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5d7c6242af790d5489c14ac4def0e90a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2e0868f1b5ebd944f81d40abcc474f38, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -166,6 +166,7 @@ GameObject:
   - component: {fileID: 39639146465855879}
   - component: {fileID: 39639146465855877}
   - component: {fileID: 4677752069546288797}
+  - component: {fileID: 7802255537806832773}
   m_Layer: 7
   m_Name: Asteroid 1
   m_TagString: Untagged
@@ -225,3 +226,16 @@ MonoBehaviour:
   targetRigidbody2D: {fileID: 39639146465855877}
   polygonCollider2D: {fileID: 39639145555240342}
   spriteRenderer: {fileID: 39639144742349587}
+--- !u!114 &7802255537806832773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39639146465855878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d252da08e20c4fd6bbcd6bd376262437, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  relativePath: Asteroid_2.png

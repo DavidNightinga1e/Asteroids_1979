@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2d442f69a9e4621449f08695540acda4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: df8779cdbade920419a6593c76c2844c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -138,31 +138,18 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 1.0923805, y: -0.82218605}
-      - {x: 1.1345587, y: -0.5662665}
-      - {x: 0.9380493, y: -0.21277362}
-      - {x: 0.7824379, y: -0.0064173937}
-      - {x: 0.8968735, y: 0.13442115}
-      - {x: 1.1016741, y: 0.38424233}
-      - {x: 1.025012, y: 0.77190924}
+    - - {x: 0.7060356, y: -0.5763977}
+      - {x: 0.9053675, y: -0.14052258}
       - {x: 0.7731848, y: 0.8789451}
       - {x: 0.38465026, y: 0.9275396}
-      - {x: 0.07916927, y: 0.7948026}
-      - {x: -0.24779947, y: 0.6882939}
-      - {x: -0.4573717, y: 0.8196279}
-      - {x: -0.688612, y: 0.9386131}
-      - {x: -1.0361872, y: 0.873001}
-      - {x: -1.1260355, y: 0.81363964}
-      - {x: -1.1446657, y: 0.50659823}
-      - {x: -0.95328975, y: 0.030317843}
-      - {x: -0.81143856, y: -0.6119561}
-      - {x: -0.67750925, y: -0.86670196}
-      - {x: -0.43400884, y: -0.9133073}
-      - {x: 0.117046356, y: -0.8415114}
-      - {x: 0.16013241, y: -0.668859}
-      - {x: 0.18238926, y: -0.75118893}
+      - {x: 0.1614399, y: 1.0554442}
+      - {x: -0.44895703, y: 1.027282}
+      - {x: -0.8559618, y: 0.8270782}
+      - {x: -1.0352428, y: 0.47360995}
+      - {x: -1.0115509, y: -0.35932624}
+      - {x: -0.445184, y: -0.7941027}
+      - {x: -0.08411121, y: -1.0463943}
       - {x: 0.3440876, y: -0.88490415}
-      - {x: 0.8850425, y: -0.9069556}
 --- !u!1 &39639146465855878
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,6 +161,7 @@ GameObject:
   - component: {fileID: 39639146465855879}
   - component: {fileID: 39639146465855877}
   - component: {fileID: 4677752069546288797}
+  - component: {fileID: 3027680977715708004}
   m_Layer: 7
   m_Name: Asteroid 4
   m_TagString: Untagged
@@ -233,3 +221,16 @@ MonoBehaviour:
   targetRigidbody2D: {fileID: 39639146465855877}
   polygonCollider2D: {fileID: 39639145555240342}
   spriteRenderer: {fileID: 39639144742349587}
+--- !u!114 &3027680977715708004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39639146465855878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d252da08e20c4fd6bbcd6bd376262437, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  relativePath: Asteroid_5.png
