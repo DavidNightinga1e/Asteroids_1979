@@ -8,6 +8,7 @@ namespace Source.Common
         public string relativePath;
 
         private SpriteRenderer _spriteRenderer;
+        private bool _isDestroyed;
 
         private void Awake()
         {
@@ -20,10 +21,17 @@ namespace Source.Common
             StreamingAssetSpriteProvider.Instance.LoadSpriteAsync(path, OnLoad);
         }
 
+        private void OnDestroy()
+        {
+            _isDestroyed = true;
+        }
+
         private void OnLoad(Sprite obj)
         {
-            if (_spriteRenderer)
-                _spriteRenderer.sprite = obj;
+            if (_isDestroyed) // thing that you can't unsubscribe from asset provider makes garbage, cause 
+                return; // this MonoBehaviour isn't removed till invocation
+
+            _spriteRenderer.sprite = obj;
         }
     }
 }

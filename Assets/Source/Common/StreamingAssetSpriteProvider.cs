@@ -46,11 +46,6 @@ namespace Source.Common
         private readonly Dictionary<string, List<Action<Sprite>>> _resultCallbacks =
             new Dictionary<string, List<Action<Sprite>>>();
 
-        public bool IsLoaded(string path)
-        {
-            return _loadedSprites.ContainsKey(path);
-        }
-
         /// <summary>
         /// If file at path is loaded then method calls result immediately
         /// Otherwise it will create coroutine and the result will be called after file is loaded
@@ -80,12 +75,27 @@ namespace Source.Common
             {
                 yield return new WaitForSeconds(Random.Range(1, 3)); // fake step 1
 
-                var pngBytes = File.ReadAllBytes(path); // no async overload for such thing in .net v4.7.1
-                var texture = new Texture2D(2, 2);
+                var fileInfo = new FileInfo(path);
+
+                var fileInfoLength = (int) fileInfo.Length;
+                // that's a tight spot, yet I don't care that much,
+                // because int.MaxValue bytes is 2 Gb, and in general texture doesn't
+                // take that much space
+
+                var bytesBuffer = new byte[fileInfoLength];
+                using var fileStream = new FileStream(path, FileMode.Open);
+                yield return fileStream.ReadAsync(bytesBuffer, 0, fileInfoLength);
+
+                var texture = new Texture2D(2, 2)
+                {
+                    name = $"Loaded Texture [{path}]"
+                };
 
                 yield return new WaitForSeconds(Random.Range(1, 3)); // fake step 2
 
-                texture.LoadImage(pngBytes);
+                texture.LoadImage(bytesBuffer); // actually that is the slowest part,
+                // but I don't see any way of loading this async
+
                 var sprite = Sprite.Create(texture,
                     new Rect(0.0f, 0.0f, texture.width, texture.height),
                     new Vector2(0.5f, 0.5f),
@@ -95,6 +105,7 @@ namespace Source.Common
 
                 foreach (var callback in _resultCallbacks[path])
                     callback?.Invoke(sprite);
+                _resultCallbacks.Remove(path); // path is loaded, remove all callbacks for this path
             }
         }
     }
