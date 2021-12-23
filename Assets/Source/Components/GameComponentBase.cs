@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Source.Common;
 using UnityEngine;
 
 namespace Source.Components
@@ -8,7 +8,7 @@ namespace Source.Components
         [Header("Game Component Base")] [SerializeField] private Rigidbody2D targetRigidbody2D;
         [SerializeField] private PolygonCollider2D polygonCollider2D;
         [SerializeField] private SpriteRenderer spriteRenderer;
-
+        
         public Rigidbody2D TargetRigidbody2D => targetRigidbody2D;
         public PolygonCollider2D PolygonCollider2D => polygonCollider2D;
         public SpriteRenderer SpriteRenderer => spriteRenderer;

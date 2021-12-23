@@ -9,11 +9,11 @@ namespace Source.Controllers
 
         private LivesComponent _livesComponent;
         private int _currentLives;
-        
+
         private void Awake()
         {
             this.AutoFindComponent(out _livesComponent);
-            
+
             EventPool.OnPlayerDestroyed.AddListener(OnPlayerDestroyed);
             EventPool.OnGameStarted.AddListener(OnGameStarted);
         }
@@ -21,7 +21,7 @@ namespace Source.Controllers
         private void OnGameStarted()
         {
             _currentLives = maxLives;
-            
+
             UpdateLivesDisplay();
         }
 
@@ -30,7 +30,7 @@ namespace Source.Controllers
             _currentLives--;
             if (_currentLives < 1)
                 EventPool.OnGameOver.Invoke();
-            
+
             UpdateLivesDisplay();
         }
 

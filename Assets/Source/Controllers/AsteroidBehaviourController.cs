@@ -14,7 +14,8 @@ namespace Source.Controllers
         private (float min, float max) WaitTimeRange =>
         (
             _settings.currentAsteroidSpawnCooldown - _settings.AsteroidSpawnDispersion,
-            _settings.currentAsteroidSpawnCooldown + _settings.AsteroidSpawnDispersion);
+            _settings.currentAsteroidSpawnCooldown + _settings.AsteroidSpawnDispersion
+        );
 
         private void Awake()
         {
@@ -86,7 +87,7 @@ namespace Source.Controllers
 
         private void OnEnemyHit(EnemyComponent arg0)
         {
-            if (!(arg0 is AsteroidComponent asteroidComponent)) 
+            if (!(arg0 is AsteroidComponent asteroidComponent))
                 return;
 
             var parentSize = asteroidComponent.Size;

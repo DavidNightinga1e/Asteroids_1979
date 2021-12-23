@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7fbbdd389d5665145aadf7f8b3f81701, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dff0b2f1473d7464bb52226f0c8c756c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -159,6 +159,7 @@ GameObject:
   - component: {fileID: 7164564658048133825}
   - component: {fileID: 7164564658048133827}
   - component: {fileID: 7164564658048133826}
+  - component: {fileID: 5525767361183018638}
   m_Layer: 8
   m_Name: Bullet
   m_TagString: Untagged
@@ -218,3 +219,16 @@ MonoBehaviour:
   targetRigidbody2D: {fileID: 7164564658048133827}
   polygonCollider2D: {fileID: 7164564656929810919}
   spriteRenderer: {fileID: 7164564656897767506}
+--- !u!114 &5525767361183018638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7164564658048133824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d252da08e20c4fd6bbcd6bd376262437, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  relativePath: Bullet.png
