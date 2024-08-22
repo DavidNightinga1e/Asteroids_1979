@@ -6,14 +6,14 @@ using UnityEngine;
 
 namespace Source.Controllers
 {
-	public class BulletBoundsController : MonoBehaviour
+	public class BulletBoundsController : IController, IUpdatable, IAwakable
 	{
 		private readonly List<BulletComponent> _bulletComponents = new();
 		private Camera _cameraComponent;
 
-		private void Awake()
+		public void Awake()
 		{
-			this.AutoFindComponent(out _cameraComponent);
+			_cameraComponent = Camera.main;
 
 			EventPool.OnBulletSpawned.AddListener(OnBulletSpawned);
 			EventPool.OnBulletDestroyed.AddListener(OnBulletDestroyed);
@@ -30,16 +30,16 @@ namespace Source.Controllers
 			_bulletComponents.Clear();
 		}
 
-		private void Update()
+		public void Update()
 		{
 			Vector2 extents = _cameraComponent.GetOrthographicExtents();
-			
+
 			foreach (BulletComponent bullet in _bulletComponents)
 			{
 				Vector2 p = bullet.TargetRigidbody2D.position;
 				if (p.x > extents.x || p.y > extents.y ||
 				    p.x < -extents.x || p.y < -extents.y)
-					Destroy(bullet.gameObject);
+					Object.Destroy(bullet.gameObject);
 			}
 		}
 

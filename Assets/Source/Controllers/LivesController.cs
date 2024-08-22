@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace Source.Controllers
 {
-    public class LivesController : MonoBehaviour
+    public class LivesController : IController, IAwakable
     {
-        public int maxLives = 3;
+        private const int MaxLives = 3;
 
         private LivesComponent _livesComponent;
         private int _currentLives;
-        
-        private void Awake()
+
+        public void Awake()
         {
-            this.AutoFindComponent(out _livesComponent);
+            _livesComponent = Object.FindObjectOfType<LivesComponent>();
             
             EventPool.OnPlayerDestroyed.AddListener(OnPlayerDestroyed);
             EventPool.OnGameStarted.AddListener(OnGameStarted);
@@ -20,7 +20,7 @@ namespace Source.Controllers
 
         private void OnGameStarted()
         {
-            _currentLives = maxLives;
+            _currentLives = MaxLives;
             
             UpdateLivesDisplay();
         }

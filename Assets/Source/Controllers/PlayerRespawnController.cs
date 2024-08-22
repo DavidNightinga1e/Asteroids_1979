@@ -3,25 +3,26 @@ using System.Collections;
 using Source.Components;
 using Source.Events;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Source.Controllers
 {
-    public class PlayerRespawnController : MonoBehaviour
+    public class PlayerRespawnController : IController, IAwakable, IStartable
     {
-        public Vector2 spawnPosition;
+        private readonly Vector2 _spawnPosition = Vector2.zero;
 
         private PlayerComponent _playerComponent;
 
-        private void Awake()
+        public void Awake()
         {
-            this.AutoFindComponent(out _playerComponent);
+            _playerComponent = Object.FindObjectOfType<PlayerComponent>();
 
             EventPool.OnGameStarted.AddListener(OnGameStarted);
             EventPool.OnPlayerDestroyed.AddListener(OnPlayerDestroyed);
             EventPool.OnGameOver.AddListener(OnGameOver);
         }
 
-        private void Start()
+        public void Start()
         {
             EventPool.OnGameStarted.Invoke();
         }
@@ -33,7 +34,6 @@ namespace Source.Controllers
 
         private void OnPlayerDestroyed()
         {
-            MakeInvincible();
             MoveToSpawn();
         }
 
@@ -45,29 +45,9 @@ namespace Source.Controllers
 
         private void MoveToSpawn()
         {
-            _playerComponent.transform.position = spawnPosition;
+            _playerComponent.transform.position = _spawnPosition;
             _playerComponent.TargetRigidbody2D.velocity = Vector2.zero;
             _playerComponent.transform.rotation = Quaternion.identity;
-        }
-
-        private void MakeInvincible()
-        {
-            StartCoroutine(InvincibilityCoroutine());
-
-            IEnumerator InvincibilityCoroutine()
-            {
-                _playerComponent.PolygonCollider2D.enabled = false;
-
-                for (int i = 0; i < 3; i++)
-                {
-                    yield return new WaitForSeconds(0.3f);
-                    _playerComponent.SpriteRenderer.enabled = false;
-                    yield return new WaitForSeconds(0.3f);
-                    _playerComponent.SpriteRenderer.enabled = true;
-                }
-
-                _playerComponent.PolygonCollider2D.enabled = true;
-            }
         }
     }
 }

@@ -1,20 +1,18 @@
-﻿using System;
-using Source.Components;
+﻿using Source.Components;
 using Source.Events;
-using UnityEngine;
 
 namespace Source.Controllers
 {
-    public class BulletDestroyController : MonoBehaviour
+    public class BulletDestroyController : IController, IAwakable
     {
-        private void Awake()
+        public void Awake()
         {
             EventPool.OnBulletHit.AddListener(OnBulletHit);
         }
 
         private void OnBulletHit(BulletComponent arg0)
         {
-            Destroy(arg0.gameObject);
+            UnityEngine.Object.Destroy(arg0.gameObject);
         }
     }
 }

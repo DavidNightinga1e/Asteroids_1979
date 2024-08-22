@@ -6,15 +6,15 @@ using UnityEngine;
 
 namespace Source.Controllers
 {
-	public class EnemyBoundsController : MonoBehaviour
+	public class EnemyBoundsController : IController, IAwakable, IUpdatable
 	{
 		private readonly List<EnemyComponent> _enemyComponents = new();
 
 		private Camera _cameraComponent;
 
-		private void Awake()
+		public void Awake()
 		{
-			this.AutoFindComponent(out _cameraComponent);
+			_cameraComponent = Camera.main;
 
 			EventPool.OnEnemySpawned.AddListener(OnEnemySpawned);
 			EventPool.OnGameStarted.AddListener(OnGameStarted);
@@ -31,7 +31,7 @@ namespace Source.Controllers
 			_enemyComponents.Clear();
 		}
 
-		private void Update()
+		public void Update()
 		{
 			Vector2 extents = _cameraComponent.GetOrthographicExtents();
 			foreach (EnemyComponent enemyComponent in _enemyComponents)
@@ -41,7 +41,7 @@ namespace Source.Controllers
 				if (p.x > extents.x + eps || p.x < -extents.x - eps ||
 				    p.y > extents.y + eps || p.y < -extents.y - eps)
 				{
-					Destroy(enemyComponent.gameObject);
+					Object.Destroy(enemyComponent.gameObject);
 				}
 			}
 		}

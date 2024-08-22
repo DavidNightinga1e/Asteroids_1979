@@ -6,7 +6,6 @@ namespace Source.Components
 {
     public class EnemySpawnSettingsComponent : MonoBehaviour
     {
-        public Vector2 enemySpawnExtents;
         public List<AsteroidComponent> asteroidPrefabs;
         public List<FlyingPlateComponent> flyingPlatePrefabs;
         public List<float> asteroidSizes = new List<float> {1, 1.5f, 2f};

@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Source.Controllers
 {
-    public class ScoreController : MonoBehaviour
+    public class ScoreController : IController, IAwakable
     {
         private ScoreComponent _scoreComponent;
 
-        private void Awake()
+        public void Awake()
         {
-            this.AutoFindComponent(out _scoreComponent);
+            _scoreComponent = Object.FindObjectOfType<ScoreComponent>();
 
             EventPool.OnEnemyHit.AddListener(OnEnemyHit);
             EventPool.OnGameStarted.AddListener(OnGameStarted);
