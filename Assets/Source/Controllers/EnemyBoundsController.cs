@@ -1,44 +1,54 @@
 ﻿using System.Collections.Generic;
 using Source.Components;
 using Source.Events;
+using Source.Utilities;
 using UnityEngine;
 
 namespace Source.Controllers
 {
-    public class EnemyBoundsController : MonoBehaviour
-    {
-        private BoundsComponent _boundsComponent;
-        private readonly List<EnemyComponent> _enemyComponents = new List<EnemyComponent>();
+	public class EnemyBoundsController : MonoBehaviour
+	{
+		private readonly List<EnemyComponent> _enemyComponents = new();
 
-        private void Awake()
-        {
-            this.AutoFindComponent(out _boundsComponent);
+		private Camera _cameraComponent;
 
-            EventPool.OnEnemySpawned.AddListener(OnEnemySpawned);
-            EventPool.OnGameStarted.AddListener(OnGameStarted);
-            EventPool.OnEnemyDestroyed.AddListener(OnEnemyDestroyed);
-        }
+		private void Awake()
+		{
+			this.AutoFindComponent(out _cameraComponent);
 
-        private void OnEnemyDestroyed(EnemyComponent arg0)
-        {
-            _enemyComponents.Remove(arg0);
-        }
+			EventPool.OnEnemySpawned.AddListener(OnEnemySpawned);
+			EventPool.OnGameStarted.AddListener(OnGameStarted);
+			EventPool.OnEnemyDestroyed.AddListener(OnEnemyDestroyed);
+		}
 
-        private void OnGameStarted()
-        {
-            _enemyComponents.Clear();
-        }
+		private void OnEnemyDestroyed(EnemyComponent arg0)
+		{
+			_enemyComponents.Remove(arg0);
+		}
 
-        private void Update()
-        {
-            foreach (var enemyComponent in _enemyComponents)
-                if (!_boundsComponent.Bounds.Contains(enemyComponent.transform.position))
-                    Destroy(enemyComponent.gameObject);
-        }
+		private void OnGameStarted()
+		{
+			_enemyComponents.Clear();
+		}
 
-        private void OnEnemySpawned(EnemyComponent arg0)
-        {
-            _enemyComponents.Add(arg0);
-        }
-    }
+		private void Update()
+		{
+			Vector2 extents = _cameraComponent.GetOrthographicExtents();
+			foreach (EnemyComponent enemyComponent in _enemyComponents)
+			{
+				Vector2 p = enemyComponent.TargetRigidbody2D.position;
+				const float eps = 0.1f;
+				if (p.x > extents.x + eps || p.x < -extents.x - eps ||
+				    p.y > extents.y + eps || p.y < -extents.y - eps)
+				{
+					Destroy(enemyComponent.gameObject);
+				}
+			}
+		}
+
+		private void OnEnemySpawned(EnemyComponent arg0)
+		{
+			_enemyComponents.Add(arg0);
+		}
+	}
 }

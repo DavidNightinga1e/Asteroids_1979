@@ -1,25 +1,39 @@
 using Source.Components;
+using Source.Events;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class PlayerMovementController : MonoBehaviour
 {
-    public float movementSpeed = 500f;
-    public float rotationSpeed = 100f;
+	public float acceleration = 500f;
+	public float angularAcceleration = 100f;
 
-    private PlayerComponent _playerComponent;
+	private Vector2 _speed;
+	private float _rotationalSpeed;
+	private PlayerComponent _playerComponent;
 
-    private void Awake()
-    {
-        this.AutoFindComponent(out _playerComponent);
-    }
+	private void Awake()
+	{
+		this.AutoFindComponent(out _playerComponent);
+		
+		EventPool.OnPlayerDestroyed.AddListener(() =>
+		{
+			_speed = Vector2.zero;
+			_rotationalSpeed = 0;
+		});
+	}
 
-    private void Update()
-    {
-        var rotate = Input.GetAxis("Rotate");
-        var move = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
+	private void FixedUpdate()
+	{
+		float rotationInput = Input.GetAxis("Horizontal");
+		float throttleInput = Input.GetAxis("Vertical");
+		
+		_speed += StripZ(_playerComponent.TargetRigidbody2D.transform.up * (throttleInput * acceleration));
+		_rotationalSpeed += rotationInput * angularAcceleration;
 
-        _playerComponent.TargetRigidbody2D.AddForce(_playerComponent.transform.TransformVector(move) * (movementSpeed * Time.deltaTime));
-        _playerComponent.transform.Rotate(Vector3.forward, -rotate * rotationSpeed * Time.deltaTime);
-    }
+		_playerComponent.TargetRigidbody2D.MovePosition(_playerComponent.TargetRigidbody2D.position + _speed);
+		_playerComponent.TargetRigidbody2D.MoveRotation(_playerComponent.TargetRigidbody2D.rotation + _rotationalSpeed);
+	}
+
+	private static Vector2 StripZ(Vector3 v) => new(v.x, v.y);
 }

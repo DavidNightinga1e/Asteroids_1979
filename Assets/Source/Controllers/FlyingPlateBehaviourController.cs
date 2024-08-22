@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Source.Components;
 using Source.Events;
+using Source.Utilities;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,6 +13,7 @@ namespace Source.Controllers
     {
         private EnemySpawnSettingsComponent _settings;
         private PlayerComponent _playerComponent;
+        private Camera _camera;
 
         private readonly List<FlyingPlateComponent> _flyingPlateComponents = new List<FlyingPlateComponent>();
 
@@ -24,6 +26,8 @@ namespace Source.Controllers
         {
             this.AutoFindComponent(out _settings);
             this.AutoFindComponent(out _playerComponent);
+            this.AutoFindComponent(out _camera);
+            
             EventPool.OnEnemyHit.AddListener(OnEnemyHit);
             EventPool.OnEnemySpawned.AddListener(OnEnemySpawned);
             EventPool.OnEnemyDestroyed.AddListener(OnEnemyDestroyed);
@@ -77,22 +81,9 @@ namespace Source.Controllers
 
         private Vector2 RandomPointOnBounds()
         {
-            var spawnExtents = _settings.enemySpawnExtents;
-
-            float RandomOnX() => Random.Range(-spawnExtents.x, spawnExtents.x);
-            float RandomOnY() => Random.Range(-spawnExtents.x, spawnExtents.x);
-
-            var side = Random.Range(0, 4);
-            var point = side switch
-            {
-                0 => new Vector2(-spawnExtents.x, RandomOnY()),
-                1 => new Vector2(RandomOnX(), spawnExtents.y),
-                2 => new Vector2(spawnExtents.x, RandomOnY()),
-                3 => new Vector2(RandomOnX(), -spawnExtents.y),
-                _ => throw new Exception()
-            };
-
-            return point;
+            Vector2 spawnExtents = _camera.GetOrthographicExtents();
+            Vector2 random = Random.insideUnitCircle.normalized;
+            return new Vector2(spawnExtents.x * random.x, spawnExtents.y * random.y);
         }
 
         private void OnEnemyHit(EnemyComponent arg0)

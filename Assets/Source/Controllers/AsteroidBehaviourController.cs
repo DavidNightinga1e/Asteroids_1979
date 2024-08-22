@@ -2,6 +2,7 @@
 using System.Collections;
 using Source.Components;
 using Source.Events;
+using Source.Utilities;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,6 +11,7 @@ namespace Source.Controllers
     public class AsteroidBehaviourController : MonoBehaviour
     {
         private EnemySpawnSettingsComponent _settings;
+        private Camera _camera;
 
         private (float min, float max) WaitTimeRange =>
         (
@@ -19,6 +21,8 @@ namespace Source.Controllers
         private void Awake()
         {
             this.AutoFindComponent(out _settings);
+            this.AutoFindComponent(out _camera);
+            
             EventPool.OnEnemyHit.AddListener(OnEnemyHit);
             StartCoroutine(EnemySpawnEnumerator());
         }
@@ -57,7 +61,7 @@ namespace Source.Controllers
 
         private (Vector2, float) RandomPointAndDirectionOnBounds()
         {
-            var spawnExtents = _settings.enemySpawnExtents;
+            Vector2 spawnExtents = _camera.GetOrthographicExtents();
 
             float RandomOnX() => Random.Range(-spawnExtents.x, spawnExtents.x);
             float RandomOnY() => Random.Range(-spawnExtents.x, spawnExtents.x);
