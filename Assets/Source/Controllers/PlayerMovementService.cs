@@ -11,12 +11,16 @@ namespace Source.Controllers
 
 		private Vector2 _speed;
 		private float _rotationalSpeed;
-		private PlayerComponent _playerComponent;
+
+		private readonly PlayerComponent _playerComponent;
+
+		public PlayerMovementService(PlayerComponent playerComponent)
+		{
+			_playerComponent = playerComponent;
+		}
 
 		public void Awake()
 		{
-			_playerComponent = Object.FindObjectOfType<PlayerComponent>();
-
 			EventPool.OnPlayerDestroyed.AddListener(() =>
 			{
 				_speed = Vector2.zero;

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Source.Components;
 using Source.Events;
-using Source.Utilities;
+using Source.Interfaces;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
@@ -12,9 +10,9 @@ namespace Source.Controllers
 {
 	public class FlyingPlateBehaviourService : IAwakable, IUpdatable, IService
 	{
-		private EnemySpawnSettingsComponent _settings;
-		private PlayerComponent _playerComponent;
-		private Camera _camera;
+		private readonly EnemySpawnSettingsComponent _settings;
+		private readonly PlayerComponent _playerComponent;
+		private readonly IBoundsProvider _boundsProvider;
 
 		private float _nextSpawnTime;
 
@@ -25,12 +23,15 @@ namespace Source.Controllers
 			_settings.currentFlyingPlateSpawnCooldown - _settings.FlyingPlateSpawnDispersion,
 			_settings.currentFlyingPlateSpawnCooldown + _settings.FlyingPlateSpawnDispersion);
 
+		public FlyingPlateBehaviourService(EnemySpawnSettingsComponent enemySpawnSettingsComponent, PlayerComponent playerComponent, IBoundsProvider boundsProvider)
+		{
+			_settings = enemySpawnSettingsComponent;
+			_playerComponent = playerComponent;
+			_boundsProvider = boundsProvider;
+		}
+
 		public void Awake()
 		{
-			_settings = Object.FindObjectOfType<EnemySpawnSettingsComponent>();
-			_playerComponent = Object.FindObjectOfType<PlayerComponent>();
-			_camera = Camera.main;
-
 			EventPool.OnEnemyHit.AddListener(OnEnemyHit);
 			EventPool.OnEnemySpawned.AddListener(OnEnemySpawned);
 			EventPool.OnEnemyDestroyed.AddListener(OnEnemyDestroyed);
@@ -93,7 +94,7 @@ namespace Source.Controllers
 
 		private Vector2 RandomPointOnBounds()
 		{
-			Vector2 spawnExtents = _camera.GetOrthographicExtents();
+			Vector2 spawnExtents = _boundsProvider.GetBounds();
 			Vector2 random = Random.insideUnitCircle.normalized;
 			return new Vector2(spawnExtents.x * random.x, spawnExtents.y * random.y);
 		}

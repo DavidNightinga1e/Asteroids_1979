@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Source.Components;
 using Source.Events;
+using Source.Interfaces;
 using Source.Utilities;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -12,8 +13,8 @@ namespace Source.Controllers
 {
 	public class AsteroidBehaviourService : IService, IAwakable, IUpdatable
 	{
-		private EnemySpawnSettingsComponent _settings;
-		private Camera _camera;
+		private readonly EnemySpawnSettingsComponent _settings;
+		private readonly IBoundsProvider _boundsProvider;
 
 		private float _nextSpawnTime;
 
@@ -22,11 +23,14 @@ namespace Source.Controllers
 			_settings.currentAsteroidSpawnCooldown - _settings.AsteroidSpawnDispersion,
 			_settings.currentAsteroidSpawnCooldown + _settings.AsteroidSpawnDispersion);
 
+		public AsteroidBehaviourService(EnemySpawnSettingsComponent spawnSettings, IBoundsProvider boundsProvider)
+		{
+			_settings = spawnSettings;
+			_boundsProvider = boundsProvider;
+		}
+
 		public void Awake()
 		{
-			_settings = Object.FindObjectOfType<EnemySpawnSettingsComponent>();
-			_camera = Camera.main;
-
 			EventPool.OnEnemyHit.AddListener(OnEnemyHit);
 		}
 
@@ -37,7 +41,7 @@ namespace Source.Controllers
 
 			if (!_settings.spawn)
 				return;
-			
+
 			(Vector2 point, float rotation) = RandomPointAndDirectionOnBounds();
 			List<AsteroidComponent> asteroidPrefabs = _settings.asteroidPrefabs;
 			int asteroidIndex = Random.Range(0, asteroidPrefabs.Count);
@@ -48,7 +52,7 @@ namespace Source.Controllers
 			var asteroidComponent = instance.GetComponent<AsteroidComponent>();
 			InitializeAsteroid(asteroidComponent, _settings.asteroidSizes.Count);
 			EventPool.OnEnemySpawned.Invoke(asteroidComponent);
-			
+
 			var (min, max) = WaitTimeRange;
 			var waitTime = Random.Range(min, max);
 			_nextSpawnTime = Time.time + waitTime;
@@ -67,7 +71,7 @@ namespace Source.Controllers
 
 		private (Vector2, float) RandomPointAndDirectionOnBounds()
 		{
-			Vector2 spawnExtents = _camera.GetOrthographicExtents();
+			Vector2 spawnExtents = _boundsProvider.GetBounds();
 
 			float RandomOnX() => Random.Range(-spawnExtents.x, spawnExtents.x);
 			float RandomOnY() => Random.Range(-spawnExtents.x, spawnExtents.x);

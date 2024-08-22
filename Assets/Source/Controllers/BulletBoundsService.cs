@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Source.Components;
 using Source.Events;
-using Source.Utilities;
+using Source.Interfaces;
 using UnityEngine;
 
 namespace Source.Controllers
@@ -9,12 +9,15 @@ namespace Source.Controllers
 	public class BulletBoundsService : IService, IUpdatable, IAwakable
 	{
 		private readonly List<BulletComponent> _bulletComponents = new();
-		private Camera _cameraComponent;
+		private readonly IBoundsProvider _boundsProvider;
+
+		public BulletBoundsService(IBoundsProvider boundsProvider)
+		{
+			_boundsProvider = boundsProvider;
+		}
 
 		public void Awake()
 		{
-			_cameraComponent = Camera.main;
-
 			EventPool.OnBulletSpawned.AddListener(OnBulletSpawned);
 			EventPool.OnBulletDestroyed.AddListener(OnBulletDestroyed);
 			EventPool.OnGameStarted.AddListener(OnGameStarted);
@@ -32,7 +35,7 @@ namespace Source.Controllers
 
 		public void Update()
 		{
-			Vector2 extents = _cameraComponent.GetOrthographicExtents();
+			Vector2 extents = _boundsProvider.GetBounds();
 
 			foreach (BulletComponent bullet in _bulletComponents)
 			{

@@ -1,23 +1,24 @@
 using Source.Components;
+using Source.Interfaces;
 using Source.Utilities;
 using UnityEngine;
 
 namespace Source.Controllers
 {
-	public class PlayerBoundsService : IService, IUpdatable, IAwakable
+	public class PlayerBoundsService : IService, IUpdatable
 	{
-		private PlayerComponent _playerComponent;
-		private Camera _camera;
+		private readonly PlayerComponent _playerComponent;
+		private readonly IBoundsProvider _boundsProvider;
 
-		public void Awake()
+		public PlayerBoundsService(PlayerComponent playerComponent, IBoundsProvider boundsProvider)
 		{
-			_playerComponent = Object.FindObjectOfType<PlayerComponent>();
-			_camera = Camera.main;
+			_playerComponent = playerComponent;
+			_boundsProvider = boundsProvider;
 		}
 
 		public void Update()
 		{
-			Vector2 extents = _camera.GetOrthographicExtents();
+			Vector2 extents = _boundsProvider.GetBounds();
 
 			Rigidbody2D targetRb = _playerComponent.TargetRigidbody2D;
 			Vector2 p = targetRb.position;

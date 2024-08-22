@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Source.Components;
 using Source.Events;
+using Source.Interfaces;
 using Source.Utilities;
 using UnityEngine;
 
@@ -10,12 +11,15 @@ namespace Source.Controllers
 	{
 		private readonly List<EnemyComponent> _enemyComponents = new();
 
-		private Camera _cameraComponent;
+		private readonly IBoundsProvider _boundsProvider;
+
+		public EnemyBoundsService(IBoundsProvider boundsProvider)
+		{
+			_boundsProvider = boundsProvider;
+		}
 
 		public void Awake()
 		{
-			_cameraComponent = Camera.main;
-
 			EventPool.OnEnemySpawned.AddListener(OnEnemySpawned);
 			EventPool.OnGameStarted.AddListener(OnGameStarted);
 			EventPool.OnEnemyDestroyed.AddListener(OnEnemyDestroyed);
@@ -33,7 +37,7 @@ namespace Source.Controllers
 
 		public void Update()
 		{
-			Vector2 extents = _cameraComponent.GetOrthographicExtents();
+			Vector2 extents = _boundsProvider.GetBounds();
 			foreach (EnemyComponent enemyComponent in _enemyComponents)
 			{
 				Vector2 p = enemyComponent.TargetRigidbody2D.position;

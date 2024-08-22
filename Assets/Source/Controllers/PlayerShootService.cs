@@ -12,16 +12,20 @@ namespace Source.Controllers
 		private const float ReloadTime = 0.3f;
 		private const float BulletSize = 0.4f;
 
-		private PlayerComponent _playerComponent;
+		private readonly PlayerComponent _playerComponent;
+
 		private bool _isGameStarted;
 		private float _nextReadyTime;
 
 		private bool IsReady => Time.time > _nextReadyTime;
 
+		public PlayerShootService(PlayerComponent playerComponent)
+		{
+			_playerComponent = playerComponent;
+		}
+
 		public void Awake()
 		{
-			_playerComponent = Object.FindObjectOfType<PlayerComponent>();
-
 			EventPool.OnGameStarted.AddListener(() => _isGameStarted = true);
 			EventPool.OnGameOver.AddListener(() => _isGameStarted = false);
 		}
@@ -38,7 +42,8 @@ namespace Source.Controllers
 
 			Vector3 spawnPosition = _playerComponent.transform.position + _playerComponent.transform.up * SpawnOffset;
 			Quaternion spawnRotation = _playerComponent.transform.rotation;
-			GameObject instance = Object.Instantiate(_playerComponent.BulletPrefab.gameObject, spawnPosition, spawnRotation);
+			GameObject instance =
+				Object.Instantiate(_playerComponent.BulletPrefab.gameObject, spawnPosition, spawnRotation);
 			instance.transform.localScale = Vector3.one * BulletSize;
 			var bulletComponent = instance.GetComponent<BulletComponent>();
 			bulletComponent.TargetRigidbody2D.AddForce(bulletComponent.transform.up * ShootImpulse,

@@ -6,12 +6,15 @@ namespace Source.Controllers
 {
     public class ScoreService : IService, IAwakable
     {
-        private ScoreComponent _scoreComponent;
+        private readonly ScoreComponent _scoreComponent;
+
+        public ScoreService(ScoreComponent scoreComponent)
+        {
+            _scoreComponent = scoreComponent;
+        }
 
         public void Awake()
         {
-            _scoreComponent = Object.FindObjectOfType<ScoreComponent>();
-
             EventPool.OnEnemyHit.AddListener(OnEnemyHit);
             EventPool.OnGameStarted.AddListener(OnGameStarted);
         }
