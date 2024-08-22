@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Source.Controllers
 {
-	public class PlayerBoundsController : IController, IUpdatable, IAwakable
+	public class PlayerBoundsService : IService, IUpdatable, IAwakable
 	{
 		private PlayerComponent _playerComponent;
 		private Camera _camera;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Source.Controllers
 {
-    public class ScoreController : IController, IAwakable
+    public class ScoreService : IService, IAwakable
     {
         private ScoreComponent _scoreComponent;
 

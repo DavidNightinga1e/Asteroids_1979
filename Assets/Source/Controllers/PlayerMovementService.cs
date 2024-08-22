@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Source.Controllers
 {
-	public class PlayerMovementController : IController, IAwakable, IFixedUpdatable
+	public class PlayerMovementService : IService, IAwakable, IFixedUpdatable
 	{
 		private const float Acceleration = 0.01f;
 		private const float AngularAcceleration = -0.05f;

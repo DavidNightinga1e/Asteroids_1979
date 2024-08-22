@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Source.Controllers
 {
-	public class PlayerShootController : IController, IAwakable, IUpdatable
+	public class PlayerShootService : IService, IAwakable, IUpdatable
 	{
 		private const float SpawnOffset = 2.2f;
 		private const float ShootImpulse = 100f;

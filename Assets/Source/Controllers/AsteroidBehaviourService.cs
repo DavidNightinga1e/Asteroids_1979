@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 
 namespace Source.Controllers
 {
-	public class AsteroidBehaviourController : IController, IAwakable, IUpdatable
+	public class AsteroidBehaviourService : IService, IAwakable, IUpdatable
 	{
 		private EnemySpawnSettingsComponent _settings;
 		private Camera _camera;

@@ -10,7 +10,7 @@ namespace Source
 		{
 			Application.targetFrameRate = 60;
 
-			var locator = new AsteroidsControllerLocator();
+			var locator = new AsteroidsServiceLocator();
 			LocatorRunner.CreateNewRunner(locator);
 		}
 	}

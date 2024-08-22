@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Source.Controllers
 {
-	public class EnemyBoundsController : IController, IAwakable, IUpdatable
+	public class EnemyBoundsService : IService, IAwakable, IUpdatable
 	{
 		private readonly List<EnemyComponent> _enemyComponents = new();
 

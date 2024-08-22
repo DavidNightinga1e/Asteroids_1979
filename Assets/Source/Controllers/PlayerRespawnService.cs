@@ -7,7 +7,7 @@ using Object = UnityEngine.Object;
 
 namespace Source.Controllers
 {
-    public class PlayerRespawnController : IController, IAwakable, IStartable
+    public class PlayerRespawnService : IService, IAwakable, IStartable
     {
         private readonly Vector2 _spawnPosition = Vector2.zero;
 

@@ -1,6 +1,6 @@
 ﻿namespace Source.Controllers
 {
-	public interface IController
+	public interface IService
 	{
 	}
 }

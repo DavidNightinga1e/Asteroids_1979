@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Source.Controllers
 {
-	public class BulletBoundsController : IController, IUpdatable, IAwakable
+	public class BulletBoundsService : IService, IUpdatable, IAwakable
 	{
 		private readonly List<BulletComponent> _bulletComponents = new();
 		private Camera _cameraComponent;

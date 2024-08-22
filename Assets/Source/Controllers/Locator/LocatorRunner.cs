@@ -9,19 +9,19 @@ namespace Source.Controllers
 	/// </summary>
 	public class LocatorRunner : MonoBehaviour
 	{
-		private ControllerLocator ControllerLocator { get; set; }
+		private ServiceLocator ServiceLocator { get; set; }
 
-		private void Start() => ControllerLocator.OnStart();
+		private void Start() => ServiceLocator.OnStart();
 
-		private void Update() => ControllerLocator.OnUpdate();
+		private void Update() => ServiceLocator.OnUpdate();
 
-		private void FixedUpdate() => ControllerLocator.OnFixedUpdate();
+		private void FixedUpdate() => ServiceLocator.OnFixedUpdate();
 
-		public static void CreateNewRunner(ControllerLocator locator)
+		public static void CreateNewRunner(ServiceLocator locator)
 		{
 			var o = new GameObject("Runner");
 			var addedComponent = o.AddComponent<LocatorRunner>();
-			addedComponent.ControllerLocator = locator;
+			addedComponent.ServiceLocator = locator;
 			locator.OnAwake();
 		}
 	}

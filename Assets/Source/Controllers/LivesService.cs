@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Source.Controllers
 {
-    public class LivesController : IController, IAwakable
+    public class LivesService : IService, IAwakable
     {
         private const int MaxLives = 3;
 

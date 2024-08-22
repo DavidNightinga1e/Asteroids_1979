@@ -3,7 +3,7 @@ using Source.Events;
 
 namespace Source.Controllers
 {
-    public class BulletDestroyController : IController, IAwakable
+    public class BulletDestroyService : IService, IAwakable
     {
         public void Awake()
         {

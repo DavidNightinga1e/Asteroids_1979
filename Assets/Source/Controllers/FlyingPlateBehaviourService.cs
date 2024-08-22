@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 
 namespace Source.Controllers
 {
-	public class FlyingPlateBehaviourController : IAwakable, IUpdatable, IController
+	public class FlyingPlateBehaviourService : IAwakable, IUpdatable, IService
 	{
 		private EnemySpawnSettingsComponent _settings;
 		private PlayerComponent _playerComponent;

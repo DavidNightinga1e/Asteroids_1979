@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace Source.Controllers
 {
-	public class ControllerLocator
+	public class ServiceLocator
 	{
-		private readonly Dictionary<Type, IController> _controllers = new();
+		private readonly Dictionary<Type, IService> _controllers = new();
 
 		private readonly List<IAwakable> _awakables = new();
 		private readonly List<IStartable> _startables = new();
 		private readonly List<IUpdatable> _updatables = new();
 		private readonly List<IFixedUpdatable> _fixedUpdatables = new();
 
-		public void AddController<T>(T controller) where T : IController
+		public void AddService<T>(T controller) where T : IService
 		{
 			_controllers.Add(typeof(T), controller);
 
@@ -26,7 +26,7 @@ namespace Source.Controllers
 				_fixedUpdatables.Add(fixedUpdatable);
 		}
 
-		public T GetController<T>() where T : IController
+		public T GetService<T>() where T : IService
 		{
 			Type key = typeof(T);
 			bool containsKey = _controllers.ContainsKey(key);

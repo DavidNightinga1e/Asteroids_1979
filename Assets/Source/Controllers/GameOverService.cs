@@ -6,7 +6,7 @@ using Object = UnityEngine.Object;
 
 namespace Source.Controllers
 {
-    public class GameOverController : IController, IAwakable, IUpdatable
+    public class GameOverService : IService, IAwakable, IUpdatable
     {
         private GameOverScreenComponent _gameOverScreenComponent;
         private ScoreComponent _scoreComponent;
