@@ -1,7 +1,7 @@
 ﻿using Source.Models;
 using Source.Views;
 
-namespace Source.Controllers
+namespace ServiceLocators
 {
 	public class DebugUiService : Service, IUpdatable
 	{

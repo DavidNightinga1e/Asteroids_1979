@@ -6,7 +6,7 @@ using Source.Utilities;
 using Source.Views;
 using UnityEngine;
 
-namespace Source.Controllers
+namespace ServiceLocators
 {
 	public class EnemyBoundsService : Service, IUpdatable
 	{

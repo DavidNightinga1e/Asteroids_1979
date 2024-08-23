@@ -1,7 +1,7 @@
 ﻿using Source.Components;
 using UnityEngine;
 
-namespace Source.Controllers
+namespace ServiceLocators
 {
 	public class GameLoopService : Service, IUpdatable, IStartable
 	{

@@ -4,7 +4,7 @@ using Source.Models;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-namespace Source.Controllers
+namespace ServiceLocators
 {
 	public class PlayerMovementService : Service, IFixedUpdatable
 	{

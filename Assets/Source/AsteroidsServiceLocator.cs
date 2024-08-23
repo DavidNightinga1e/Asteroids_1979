@@ -1,6 +1,6 @@
 ﻿using Source.Adapters;
 using Source.Components;
-using Source.Controllers;
+using ServiceLocators;
 using Source.Interfaces;
 using Source.Models;
 using Source.Views;
@@ -12,7 +12,8 @@ namespace Source
 	{
 		public AsteroidsServiceLocator()
 		{
-			var enemySpawnSettingsComponent = Object.FindObjectOfType<EnemySpawnSettingsComponent>();
+			var enemySpawnSettingsComponent =
+				Object.FindObjectOfType<EnemySpawnSettingsComponent>(); // todo make scriptable object
 			var playerView = Object.FindObjectOfType<PlayerView>();
 			var gameOverScreenComponent = Object.FindObjectOfType<GameOverScreenView>();
 			var scoreComponent = Object.FindObjectOfType<ScoreComponent>();

@@ -5,7 +5,7 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-namespace Source.Controllers
+namespace ServiceLocators
 {
 	public class FlyingPlateBehaviourService : Service, IAwakable, IUpdatable
 	{

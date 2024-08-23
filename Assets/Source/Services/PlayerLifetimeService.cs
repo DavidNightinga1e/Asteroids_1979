@@ -2,7 +2,7 @@
 using Source.Views;
 using UnityEditor.SceneManagement;
 
-namespace Source.Controllers
+namespace ServiceLocators
 {
 	public class PlayerLifetimeService : Service, IFixedUpdatable
 	{

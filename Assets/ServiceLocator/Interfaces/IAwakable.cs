@@ -1,4 +1,4 @@
-﻿namespace Source.Controllers
+﻿namespace ServiceLocators
 {
 	public interface IAwakable
 	{

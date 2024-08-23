@@ -1,6 +1,6 @@
 ﻿using Source.Models;
 
-namespace Source.Controllers
+namespace ServiceLocators
 {
 	public class ScoreService : Service
 	{

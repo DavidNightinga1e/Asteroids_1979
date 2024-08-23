@@ -6,7 +6,7 @@ using Source.Models;
 using Source.Views;
 using UnityEngine;
 
-namespace Source.Controllers
+namespace ServiceLocators
 {
 	public class PlayerShootService : Service, IUpdatable
 	{

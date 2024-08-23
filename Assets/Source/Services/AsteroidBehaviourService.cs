@@ -8,7 +8,7 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-namespace Source.Controllers
+namespace ServiceLocators
 {
 	public class AsteroidBehaviourService : Service, IUpdatable, IFixedUpdatable, IEnemyLifetimeBroadcaster
 	{

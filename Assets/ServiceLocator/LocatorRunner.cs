@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Source.Controllers
+namespace ServiceLocators
 {
 	/// <summary>
 	/// Можно написать кастомный PlayerLoop чтобы монобех не кидать

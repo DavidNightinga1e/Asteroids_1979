@@ -1,7 +1,7 @@
 using Source.Interfaces;
 using UnityEngine;
 
-namespace Source.Controllers
+namespace ServiceLocators
 {
 	public class PlayerBoundsService : Service, IFixedUpdatable
 	{

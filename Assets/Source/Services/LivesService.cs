@@ -1,7 +1,7 @@
 ﻿using System;
 using Source.Interfaces;
 
-namespace Source.Controllers
+namespace ServiceLocators
 {
 	public class LivesService : Service
 	{

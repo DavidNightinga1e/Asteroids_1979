@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Source.Controllers
+namespace ServiceLocators
 {
 	public class ServiceLocator
 	{
