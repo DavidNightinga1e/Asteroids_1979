@@ -1,58 +1,52 @@
 ﻿using System.Collections.Generic;
 using Source.Components;
-using Source.Events;
 using Source.Interfaces;
+using Source.Models;
 using Source.Utilities;
+using Source.Views;
 using UnityEngine;
 
 namespace Source.Controllers
 {
-	public class EnemyBoundsService : IService, IAwakable, IUpdatable
+	public class EnemyBoundsService : Service, IUpdatable
 	{
-		private readonly List<EnemyComponent> _enemyComponents = new();
+		private readonly List<EnemyModel> _models = new();
 
 		private readonly IBoundsProvider _boundsProvider;
+		private readonly IEnemyLifetimeBroadcaster _enemyLifetimeBroadcaster;
 
-		public EnemyBoundsService(IBoundsProvider boundsProvider)
+		public EnemyBoundsService(IBoundsProvider boundsProvider, IEnemyLifetimeBroadcaster lifetimeBroadcaster)
 		{
 			_boundsProvider = boundsProvider;
+			_enemyLifetimeBroadcaster = lifetimeBroadcaster;
+
+			lifetimeBroadcaster.OnEnemySpawn += OnSpawn; // todo add unsub
+			lifetimeBroadcaster.OnEnemyDestroy += OnEnemyDestroyed; // todo add unsub
 		}
 
-		public void Awake()
+		private void OnEnemyDestroyed(EnemyModel model)
 		{
-			EventPool.OnEnemySpawned.AddListener(OnEnemySpawned);
-			EventPool.OnGameStarted.AddListener(OnGameStarted);
-			EventPool.OnEnemyDestroyed.AddListener(OnEnemyDestroyed);
+			_models.Remove(model);
 		}
 
-		private void OnEnemyDestroyed(EnemyComponent arg0)
+		private void OnSpawn(EnemyModel model)
 		{
-			_enemyComponents.Remove(arg0);
-		}
-
-		private void OnGameStarted()
-		{
-			_enemyComponents.Clear();
+			_models.Add(model);
 		}
 
 		public void Update()
 		{
 			Vector2 extents = _boundsProvider.GetBounds();
-			foreach (EnemyComponent enemyComponent in _enemyComponents)
+			foreach (EnemyModel model in _models)
 			{
-				Vector2 p = enemyComponent.TargetRigidbody2D.position;
+				Vector2 p = model.View.GetPosition();
 				const float eps = 0.1f;
 				if (p.x > extents.x + eps || p.x < -extents.x - eps ||
 				    p.y > extents.y + eps || p.y < -extents.y - eps)
 				{
-					Object.Destroy(enemyComponent.gameObject);
+					Object.Destroy(model.View.gameObject);
 				}
 			}
-		}
-
-		private void OnEnemySpawned(EnemyComponent arg0)
-		{
-			_enemyComponents.Add(arg0);
 		}
 	}
 }

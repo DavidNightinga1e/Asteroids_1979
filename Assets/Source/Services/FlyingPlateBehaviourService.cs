@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Source.Components;
-using Source.Events;
 using Source.Interfaces;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -8,10 +7,10 @@ using Random = UnityEngine.Random;
 
 namespace Source.Controllers
 {
-	public class FlyingPlateBehaviourService : IAwakable, IUpdatable, IService
+	public class FlyingPlateBehaviourService : Service, IAwakable, IUpdatable
 	{
 		private readonly EnemySpawnSettingsComponent _settings;
-		private readonly PlayerComponent _playerComponent;
+		//private readonly PlayerComponent _playerComponent;
 		private readonly IBoundsProvider _boundsProvider;
 
 		private float _nextSpawnTime;
@@ -23,18 +22,17 @@ namespace Source.Controllers
 			_settings.currentFlyingPlateSpawnCooldown - _settings.FlyingPlateSpawnDispersion,
 			_settings.currentFlyingPlateSpawnCooldown + _settings.FlyingPlateSpawnDispersion);
 
-		public FlyingPlateBehaviourService(EnemySpawnSettingsComponent enemySpawnSettingsComponent, PlayerComponent playerComponent, IBoundsProvider boundsProvider)
+		public FlyingPlateBehaviourService(EnemySpawnSettingsComponent enemySpawnSettingsComponent, IBoundsProvider boundsProvider)
 		{
 			_settings = enemySpawnSettingsComponent;
-			_playerComponent = playerComponent;
 			_boundsProvider = boundsProvider;
 		}
 
 		public void Awake()
 		{
-			EventPool.OnEnemyHit.AddListener(OnEnemyHit);
-			EventPool.OnEnemySpawned.AddListener(OnEnemySpawned);
-			EventPool.OnEnemyDestroyed.AddListener(OnEnemyDestroyed);
+			// EventPool.OnEnemyHit.AddListener(OnEnemyHit);
+			// EventPool.OnEnemySpawned.AddListener(OnEnemySpawned);
+			// EventPool.OnEnemyDestroyed.AddListener(OnEnemyDestroyed);
 		}
 
 		private void OnEnemyDestroyed(EnemyComponent arg0)
@@ -68,13 +66,13 @@ namespace Source.Controllers
 				return;
 
 			Vector2 point = RandomPointOnBounds();
-			int i = Random.Range(0, _settings.flyingPlatePrefabs.Count);
+			int i = Random.Range(0, _settings.ufoPrefabs.Count);
 			GameObject instance = Object.Instantiate(
-				_settings.flyingPlatePrefabs[i].gameObject,
+				_settings.ufoPrefabs[i].gameObject,
 				point,
 				Quaternion.identity);
 			var flyingPlateComponent = instance.GetComponent<FlyingPlateComponent>();
-			EventPool.OnEnemySpawned.Invoke(flyingPlateComponent);
+			//EventPool.OnEnemySpawned.Invoke(flyingPlateComponent);
 
 
 			(float min, float max) = WaitTimeRange;
@@ -87,7 +85,7 @@ namespace Source.Controllers
 			foreach (FlyingPlateComponent c in _flyingPlateComponents)
 			{
 				// todo: to rigidbody
-				c.transform.Translate((_playerComponent.transform.position - c.transform.position).normalized *
+				c.transform.Translate((c.transform.position).normalized *
 				                      (_settings.flyingPlateSpeed * Time.deltaTime));
 			}
 		}

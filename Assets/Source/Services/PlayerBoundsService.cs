@@ -1,35 +1,32 @@
-using Source.Components;
 using Source.Interfaces;
-using Source.Utilities;
 using UnityEngine;
 
 namespace Source.Controllers
 {
-	public class PlayerBoundsService : IService, IUpdatable
+	public class PlayerBoundsService : Service, IFixedUpdatable
 	{
-		private readonly PlayerComponent _playerComponent;
+		private readonly IMovable _playerMovable;
 		private readonly IBoundsProvider _boundsProvider;
 
-		public PlayerBoundsService(PlayerComponent playerComponent, IBoundsProvider boundsProvider)
+		public PlayerBoundsService(IMovable playerMovable, IBoundsProvider boundsProvider)
 		{
-			_playerComponent = playerComponent;
+			_playerMovable = playerMovable;
 			_boundsProvider = boundsProvider;
 		}
 
-		public void Update()
+		public void FixedUpdate()
 		{
 			Vector2 extents = _boundsProvider.GetBounds();
 
-			Rigidbody2D targetRb = _playerComponent.TargetRigidbody2D;
-			Vector2 p = targetRb.position;
+			Vector2 p = _playerMovable.GetPosition();
 			if (p.x > extents.x)
-				targetRb.position = new Vector2(-extents.x, p.y);
+				_playerMovable.SetPosition(new Vector2(-extents.x, p.y));
 			else if (p.x < -extents.x)
-				targetRb.position = new Vector2(extents.x, p.y);
+				_playerMovable.SetPosition(new Vector2(extents.x, p.y));
 			else if (p.y > extents.y)
-				targetRb.position = new Vector2(p.x, -extents.y);
+				_playerMovable.SetPosition(new Vector2(p.x, -extents.y));
 			else if (p.y < -extents.y)
-				targetRb.position = new Vector2(p.x, extents.y);
+				_playerMovable.SetPosition(new Vector2(p.x, extents.y));
 		}
 	}
 }

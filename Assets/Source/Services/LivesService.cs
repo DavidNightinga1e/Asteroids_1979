@@ -1,30 +1,26 @@
-﻿using Source.Events;
-using UnityEngine;
+﻿using System;
+using Source.Interfaces;
 
 namespace Source.Controllers
 {
-	public class LivesService : IService, IAwakable
+	public class LivesService : Service
 	{
 		private const int MaxLives = 3;
 
 		private readonly LivesComponent _livesComponent;
 		private int _currentLives;
 
-		public LivesService(LivesComponent livesComponent)
+		public LivesService(LivesComponent livesComponent,
+			IPlayerDestroyBroadcaster playerDestroyBroadcaster)
 		{
 			_livesComponent = livesComponent;
+
+			playerDestroyBroadcaster.OnPlayerDestroy += OnPlayerDestroyed;
 		}
 
-		public void Awake()
-		{
-			EventPool.OnPlayerDestroyed.AddListener(OnPlayerDestroyed);
-			EventPool.OnGameStarted.AddListener(OnGameStarted);
-		}
-
-		private void OnGameStarted()
+		public void ResetLives()
 		{
 			_currentLives = MaxLives;
-
 			UpdateLivesDisplay();
 		}
 
@@ -32,7 +28,9 @@ namespace Source.Controllers
 		{
 			_currentLives--;
 			if (_currentLives < 1)
-				EventPool.OnGameOver.Invoke();
+			{
+				ServiceLocator.GetService<GameLoopService>().OnGameOver();
+			}
 
 			UpdateLivesDisplay();
 		}
