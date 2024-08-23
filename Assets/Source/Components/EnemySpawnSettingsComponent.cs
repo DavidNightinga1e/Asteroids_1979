@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
 namespace Source.Components
 {
     public class EnemySpawnSettingsComponent : MonoBehaviour
     {
+        public InputActionAsset inputActionAsset;
         public List<GameObject> asteroidPrefabs;
         public List<GameObject> ufoPrefabs;
         public List<float> asteroidSizes = new List<float> {1, 1.5f, 2f};

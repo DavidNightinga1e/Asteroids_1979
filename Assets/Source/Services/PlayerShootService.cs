@@ -18,21 +18,23 @@ namespace ServiceLocators
 
 		private readonly PlayerView _playerView;
 		private readonly IBoundsProvider _boundsProvider;
+		private readonly IPlayerInputProvider _playerInputProvider;
 
 		private bool _isGameStarted;
 		private float _nextReadyTime;
 
 		private bool IsReady => Time.time > _nextReadyTime;
 
-		public PlayerShootService(PlayerView playerView, IBoundsProvider boundsProvider)
+		public PlayerShootService(PlayerView playerView, IBoundsProvider boundsProvider, IPlayerInputProvider playerInputProvider)
 		{
 			_playerView = playerView;
 			_boundsProvider = boundsProvider;
+			_playerInputProvider = playerInputProvider;
 		}
 		
 		public void Update()
 		{
-			if (Input.GetButton("Fire") && IsReady)
+			if (_playerInputProvider.IsFire && IsReady)
 				Fire();
 
 			UpdateMovement();

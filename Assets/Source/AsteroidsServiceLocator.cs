@@ -23,6 +23,8 @@ namespace Source
 			IBoundsProvider boundsProvider = new OrthographicCameraBoundsProvider(Camera.main);
 			IAsteroidFactorySettingsProvider asteroidFactorySettingsProvider =
 				new EnemySettingsAsteroidFactorySettingsAdapter(enemySpawnSettingsComponent);
+			IPlayerInputProvider playerInputProvider =
+				new InputSystemPlayerInputAdapter(enemySpawnSettingsComponent.inputActionAsset);
 
 			var asteroidBehaviourService =
 				new AsteroidBehaviourService(asteroidFactorySettingsProvider, boundsProvider);
@@ -37,7 +39,7 @@ namespace Source
 			AddService(new LivesService(livesComponent, playerView));
 			AddService(new PlayerMovementService(playerModel, playerModel, playerView, playerModel));
 			AddService(new PlayerBoundsService(playerModel, boundsProvider));
-			AddService(new PlayerShootService(playerView, boundsProvider));
+			AddService(new PlayerShootService(playerView, boundsProvider, playerInputProvider));
 			AddService(playerLifetimeService);
 			AddService(new ScoreService(scoreComponent));
 			AddService(new DebugUiService(debugUiView, playerModel));
