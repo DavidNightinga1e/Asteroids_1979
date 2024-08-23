@@ -37,7 +37,8 @@ namespace Source
 			//AddService(new FlyingPlateBehaviourService(enemySpawnSettingsComponent, playerComponent, boundsProvider));
 			AddService(new GameLoopService(gameOverScreenComponent, scoreComponent));
 			AddService(new LivesService(livesComponent, playerView));
-			AddService(new PlayerMovementService(playerModel, playerModel, playerView, playerModel));
+			AddService(
+				new PlayerMovementService(playerModel, playerModel, playerView, playerModel, playerInputProvider));
 			AddService(new PlayerBoundsService(playerModel, boundsProvider));
 			AddService(new PlayerShootService(playerView, boundsProvider, playerInputProvider));
 			AddService(playerLifetimeService);
