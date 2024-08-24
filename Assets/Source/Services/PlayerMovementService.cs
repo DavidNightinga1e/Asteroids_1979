@@ -1,7 +1,5 @@
-using Source.Components;
 using Source.Interfaces;
 using Source.Models;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace ServiceLocators

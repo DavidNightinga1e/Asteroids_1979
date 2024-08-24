@@ -11,6 +11,8 @@ namespace Source.Models
 		
 		public Vector2 Speed { get; set; }
 		public float AngularSpeed { get; set; }
+		public int LaserCharges { get; set; }
+		public float NextLaserChargeTime { get; set; }
 		
 		public PlayerView View { get; }
 		

@@ -41,6 +41,7 @@ namespace Source
 				new PlayerMovementService(playerModel, playerModel, playerView, playerModel, playerInputProvider));
 			AddService(new PlayerBoundsService(playerModel, boundsProvider));
 			AddService(new PlayerShootService(playerView, boundsProvider, playerInputProvider));
+			AddService(new PlayerLaserService(playerModel, playerInputProvider, playerView, playerView, playerView));
 			AddService(playerLifetimeService);
 			AddService(new ScoreService(scoreComponent));
 			AddService(new DebugUiService(debugUiView, playerModel));

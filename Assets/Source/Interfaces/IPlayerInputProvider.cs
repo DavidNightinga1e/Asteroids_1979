@@ -5,5 +5,6 @@
 		float Rotation { get; }
 		bool IsMove { get; }
 		bool IsFire { get; }
+		bool IsLaserFire { get; }
 	}
 }
