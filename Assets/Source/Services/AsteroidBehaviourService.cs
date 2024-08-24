@@ -86,7 +86,7 @@ namespace ServiceLocators
 				for (var i = 0; i < numberOfAsteroids; i++)
 				{
 					AsteroidModel childAsteroid =
-						AsteroidFactory.CreateChildAsteroid(_asteroidFactorySettings, model.View, parentSize);
+						AsteroidFactory.CreateChildAsteroid(_asteroidFactorySettings, model.View, model);
 					AddAsteroid(childAsteroid);
 				}
 			}

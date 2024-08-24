@@ -37,7 +37,7 @@ namespace Source.Factories
 			Vector2 spawnExtents = boundsProvider.GetBounds();
 
 			float RandomOnX() => Random.Range(-spawnExtents.x, spawnExtents.x);
-			float RandomOnY() => Random.Range(-spawnExtents.x, spawnExtents.x);
+			float RandomOnY() => Random.Range(-spawnExtents.y, spawnExtents.y);
 
 			int side = Random.Range(0, 4);
 			Vector2 point = side switch
@@ -62,7 +62,7 @@ namespace Source.Factories
 		}
 
 		public static AsteroidModel CreateChildAsteroid(IAsteroidFactorySettingsProvider settings,
-			IMovable parentMovable, int parentSize)
+			IMovable parentMovable, AsteroidModel parentModel)
 		{
 			IReadOnlyList<GameObject> prefabs = settings.Prefabs;
 			int i = Random.Range(0, prefabs.Count);
@@ -71,9 +71,9 @@ namespace Source.Factories
 			var view = instance.GetComponent<AsteroidView>();
 			Transform transform = view.Rb.transform;
 
-			float speed = Random.Range(settings.MinLinearSpeed, settings.MaxLinearSpeed);
+			float speed = Random.Range(parentModel.Direction.magnitude, settings.MaxLinearSpeed);
 			float angularSpeed = Random.Range(settings.MinRotationSpeed, settings.MaxRotationSpeed);
-			int size = Random.Range(0, parentSize);
+			int size = Random.Range(0, parentModel.Size);
 			transform.localScale = Vector3.one * settings.Sizes[size];
 			Vector3 direction = transform.up * speed;
 
