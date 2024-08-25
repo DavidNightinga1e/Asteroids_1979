@@ -17,7 +17,7 @@ namespace Source
 			var playerView = Object.FindObjectOfType<PlayerView>();
 			var gameOverScreenComponent = Object.FindObjectOfType<GameOverScreenView>();
 			var scoreComponent = Object.FindObjectOfType<ScoreView>();
-			var livesComponent = Object.FindObjectOfType<LivesComponent>();
+			var livesComponent = Object.FindObjectOfType<LivesView>();
 			var debugUiView = Object.FindObjectOfType<DebugUiView>();
 
 			IBoundsProvider boundsProvider = new OrthographicCameraBoundsProvider(Camera.main);
@@ -40,8 +40,7 @@ namespace Source
 			AddService(new EnemyBoundsService(boundsProvider, asteroidBehaviourService, ufoBehaviourService));
 			AddService(new GameLoopService(gameOverScreenComponent));
 			AddService(new LivesService(livesComponent, playerView));
-			AddService(
-				new PlayerMovementService(playerModel, playerModel, playerView, playerModel, playerInputProvider));
+			AddService(new PlayerMovementService(playerModel, playerModel, playerView, playerModel, playerInputProvider));
 			AddService(new PlayerBoundsService(playerModel, boundsProvider));
 			AddService(new PlayerShootService(playerView, boundsProvider, playerInputProvider));
 			AddService(new PlayerLaserService(playerModel, playerInputProvider, playerView, playerView, playerView));

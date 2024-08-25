@@ -1,5 +1,5 @@
-﻿using System;
-using Source.Interfaces;
+﻿using Source.Interfaces;
+using Source.Views;
 
 namespace ServiceLocators
 {
@@ -7,13 +7,13 @@ namespace ServiceLocators
 	{
 		private const int MaxLives = 3;
 
-		private readonly LivesComponent _livesComponent;
+		private readonly LivesView _livesView;
 		private int _currentLives;
 
-		public LivesService(LivesComponent livesComponent,
+		public LivesService(LivesView livesView,
 			IPlayerDestroyBroadcaster playerDestroyBroadcaster)
 		{
-			_livesComponent = livesComponent;
+			_livesView = livesView;
 
 			playerDestroyBroadcaster.OnPlayerDestroy += OnPlayerDestroyed;
 		}
@@ -37,9 +37,9 @@ namespace ServiceLocators
 
 		private void UpdateLivesDisplay()
 		{
-			_livesComponent.Lives[2].enabled = _currentLives > 2;
-			_livesComponent.Lives[1].enabled = _currentLives > 1;
-			_livesComponent.Lives[0].enabled = _currentLives > 0;
+			_livesView.Lives[2].enabled = _currentLives > 2;
+			_livesView.Lives[1].enabled = _currentLives > 1;
+			_livesView.Lives[0].enabled = _currentLives > 0;
 		}
 	}
 }

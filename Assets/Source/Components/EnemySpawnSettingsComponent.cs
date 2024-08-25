@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace Source.Components
 {
+    [Obsolete("Use GameSettingsScriptableObject")]
     public class EnemySpawnSettingsComponent : MonoBehaviour
     {
         public InputActionAsset inputActionAsset;
