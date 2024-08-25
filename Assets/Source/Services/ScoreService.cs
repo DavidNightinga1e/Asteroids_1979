@@ -1,33 +1,36 @@
 ﻿using Source.Models;
+using Source.Views;
 
 namespace ServiceLocators
 {
 	public class ScoreService : Service
 	{
-		private readonly ScoreComponent _scoreComponent;
+		private readonly ScoreView _scoreView;
 
-		public ScoreService(ScoreComponent scoreComponent)
+		public ScoreModel ScoreModel { get; set; } = new();
+
+		public ScoreService(ScoreView scoreView)
 		{
-			_scoreComponent = scoreComponent;
+			_scoreView = scoreView;
 		}
 
 		public void OnGameRestart()
 		{
-			_scoreComponent.currentScore = 0;
+			ScoreModel.Score = 0;
 			UpdateText();
 		}
 
 		private void UpdateText()
 		{
-			_scoreComponent.TextMeshPro.text = $"Score: {_scoreComponent.currentScore:000000}";
+			_scoreView.TextMeshPro.text = $"Score: {ScoreModel.Score:000000}";
 		}
 
 		public void OnEnemyHit(EnemyModel enemyModel)
 		{
-			_scoreComponent.currentScore += enemyModel switch
+			ScoreModel.Score += enemyModel switch
 			{
 				AsteroidModel asteroidModel => 400 - 100 * asteroidModel.Size,
-				UfoModel ufoModel => 300,
+				UfoModel _ => 300,
 				_ => 800
 			};
 

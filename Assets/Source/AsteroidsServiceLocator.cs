@@ -16,7 +16,7 @@ namespace Source
 				Object.FindObjectOfType<EnemySpawnSettingsComponent>(); // todo make scriptable object
 			var playerView = Object.FindObjectOfType<PlayerView>();
 			var gameOverScreenComponent = Object.FindObjectOfType<GameOverScreenView>();
-			var scoreComponent = Object.FindObjectOfType<ScoreComponent>();
+			var scoreComponent = Object.FindObjectOfType<ScoreView>();
 			var livesComponent = Object.FindObjectOfType<LivesComponent>();
 			var debugUiView = Object.FindObjectOfType<DebugUiView>();
 
@@ -38,7 +38,7 @@ namespace Source
 			AddService(asteroidBehaviourService);
 			AddService(ufoBehaviourService);
 			AddService(new EnemyBoundsService(boundsProvider, asteroidBehaviourService, ufoBehaviourService));
-			AddService(new GameLoopService(gameOverScreenComponent, scoreComponent));
+			AddService(new GameLoopService(gameOverScreenComponent));
 			AddService(new LivesService(livesComponent, playerView));
 			AddService(
 				new PlayerMovementService(playerModel, playerModel, playerView, playerModel, playerInputProvider));

@@ -1,4 +1,5 @@
 ﻿using Source.Components;
+using Source.Views;
 using UnityEngine;
 
 namespace ServiceLocators
@@ -6,12 +7,13 @@ namespace ServiceLocators
 	public class GameLoopService : Service, IUpdatable, IStartable
 	{
 		private readonly GameOverScreenView _gameOverScreenView;
-		private readonly ScoreComponent _scoreComponent;
 
-		public GameLoopService(GameOverScreenView gameOverScreenView, ScoreComponent scoreComponent)
+		private const string ResultFormat =
+			"<size=56><b>Game Over!</b></size>\nScore: {0:000000}\n\n<size=36><i>press R to try again</i></size>";
+
+		public GameLoopService(GameOverScreenView gameOverScreenView)
 		{
 			_gameOverScreenView = gameOverScreenView;
-			_scoreComponent = scoreComponent;
 		}
 
 		public void Start()
@@ -21,9 +23,10 @@ namespace ServiceLocators
 
 		public void OnGameOver()
 		{
+			var scoreService = ServiceLocator.GetService<ScoreService>();
+			int score = scoreService.ScoreModel.Score;
 			_gameOverScreenView.gameObject.SetActive(true);
-			_gameOverScreenView.TextMeshPro.text =
-				$"<size=56><b>Game Over!</b></size>\nScore: {_scoreComponent.currentScore:000000}\n\n<size=36><i>press R to try again</i></size>";
+			_gameOverScreenView.TextMeshPro.text = string.Format(ResultFormat, score);
 		}
 
 		public void Update()
