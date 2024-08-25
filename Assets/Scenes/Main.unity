@@ -1079,7 +1079,9 @@ MonoBehaviour:
   - {fileID: 39639146465855878, guid: 67200c5402da4054a9eef9c08992114d, type: 3}
   - {fileID: 39639146465855878, guid: 1c4caa74b9071c3499d145d669651a4b, type: 3}
   - {fileID: 39639146465855878, guid: fb4d5c8728ed0eb47ab19cc0ccd3feb5, type: 3}
-  ufoPrefabs: []
+  ufoPrefabs:
+  - {fileID: 39639146465855878, guid: 1922292b857b0dd498af8430f69b408f, type: 3}
+  - {fileID: 39639146465855878, guid: b1917f0e721c66e42addd4dce60a1a46, type: 3}
   asteroidSizes:
   - 1
   - 1.5
@@ -1088,7 +1090,7 @@ MonoBehaviour:
   asteroidMaxForce: 0.05
   asteroidMinTorque: -0.05
   asteroidMaxTorque: 0.05
-  flyingPlateSpeed: 3
+  flyingPlateSpeed: 0.03
   currentAsteroidSpawnCooldown: 1
   currentFlyingPlateSpawnCooldown: 1
   spawn: 1

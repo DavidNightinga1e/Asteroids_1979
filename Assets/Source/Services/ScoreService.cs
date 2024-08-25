@@ -27,6 +27,7 @@ namespace ServiceLocators
 			_scoreComponent.currentScore += enemyModel switch
 			{
 				AsteroidModel asteroidModel => 400 - 100 * asteroidModel.Size,
+				UfoModel ufoModel => 300,
 				_ => 800
 			};
 

@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
-using Source.Components;
 using Source.Interfaces;
 using Source.Models;
-using Source.Utilities;
-using Source.Views;
 using UnityEngine;
 
 namespace ServiceLocators
@@ -13,15 +10,17 @@ namespace ServiceLocators
 		private readonly List<EnemyModel> _models = new();
 
 		private readonly IBoundsProvider _boundsProvider;
-		private readonly IEnemyLifetimeBroadcaster _enemyLifetimeBroadcaster;
 
-		public EnemyBoundsService(IBoundsProvider boundsProvider, IEnemyLifetimeBroadcaster lifetimeBroadcaster)
+		public EnemyBoundsService(IBoundsProvider boundsProvider,
+			params IEnemyLifetimeBroadcaster[] lifetimeBroadcasters)
 		{
 			_boundsProvider = boundsProvider;
-			_enemyLifetimeBroadcaster = lifetimeBroadcaster;
 
-			lifetimeBroadcaster.OnEnemySpawn += OnSpawn; // todo add unsub
-			lifetimeBroadcaster.OnEnemyDestroy += OnEnemyDestroyed; // todo add unsub
+			foreach (IEnemyLifetimeBroadcaster broadcaster in lifetimeBroadcasters)
+			{
+				broadcaster.OnEnemySpawn += OnSpawn; 
+				broadcaster.OnEnemyDestroy += OnEnemyDestroyed;
+			}
 		}
 
 		private void OnEnemyDestroyed(EnemyModel model)

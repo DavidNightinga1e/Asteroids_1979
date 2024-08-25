@@ -21,20 +21,23 @@ namespace Source
 			var debugUiView = Object.FindObjectOfType<DebugUiView>();
 
 			IBoundsProvider boundsProvider = new OrthographicCameraBoundsProvider(Camera.main);
-			IAsteroidFactorySettingsProvider asteroidFactorySettingsProvider =
-				new EnemySettingsAsteroidFactorySettingsAdapter(enemySpawnSettingsComponent);
 			IPlayerInputProvider playerInputProvider =
 				new InputSystemPlayerInputAdapter(enemySpawnSettingsComponent.inputActionAsset);
 
+			IAsteroidFactorySettingsProvider asteroidFactorySettingsProvider =
+				new EnemySettingsAsteroidFactorySettingsAdapter(enemySpawnSettingsComponent);
 			var asteroidBehaviourService =
 				new AsteroidBehaviourService(asteroidFactorySettingsProvider, boundsProvider);
+
+			var ufoSettingsProvider = new EnemySettingsUfoSettingsProviderAdapter(enemySpawnSettingsComponent);
+			var ufoBehaviourService = new UfoBehaviourService(ufoSettingsProvider, boundsProvider, playerView);
 
 			var playerLifetimeService = new PlayerLifetimeService(playerView);
 			PlayerModel playerModel = playerLifetimeService.Model;
 
 			AddService(asteroidBehaviourService);
-			AddService(new EnemyBoundsService(boundsProvider, asteroidBehaviourService));
-			//AddService(new FlyingPlateBehaviourService(enemySpawnSettingsComponent, playerComponent, boundsProvider));
+			AddService(ufoBehaviourService);
+			AddService(new EnemyBoundsService(boundsProvider, asteroidBehaviourService, ufoBehaviourService));
 			AddService(new GameLoopService(gameOverScreenComponent, scoreComponent));
 			AddService(new LivesService(livesComponent, playerView));
 			AddService(
