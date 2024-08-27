@@ -8,7 +8,7 @@ namespace ServiceLocators
 		private const int MaxLives = 3;
 
 		private readonly LivesView _livesView;
-		private int _currentLives;
+		private int _currentLives = MaxLives;
 
 		public LivesService(LivesView livesView,
 			IPlayerDestroyBroadcaster playerDestroyBroadcaster)
