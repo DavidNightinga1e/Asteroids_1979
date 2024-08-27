@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99ca3ccbcf2444bea8b425ab74d28010, type: 3}
+  m_Name: GameSettings
+  m_EditorClassIdentifier: 
+  asteroidPrefabs:
+  - {fileID: 8279583007623298785, guid: 43d957803c2912641812f925657e6765, type: 3}
+  - {fileID: 39639146465855878, guid: eb06021f5432794479f975c5116cca16, type: 3}
+  - {fileID: 39639146465855878, guid: 67200c5402da4054a9eef9c08992114d, type: 3}
+  - {fileID: 39639146465855878, guid: 1c4caa74b9071c3499d145d669651a4b, type: 3}
+  - {fileID: 39639146465855878, guid: fb4d5c8728ed0eb47ab19cc0ccd3feb5, type: 3}
+  asteroidSizes:
+  - 1
+  - 1.5
+  - 2
+  minAsteroidRotationSpeed: -0.05
+  maxAsteroidRotationSpeed: 0.05
+  minAsteroidLinearSpeed: 0.01
+  maxAsteroidLinearSpeed: 0.05
+  minAsteroidSpawnDelay: 1
+  maxAsteroidSpawnDelay: 2
+  ufoPrefabs:
+  - {fileID: 39639146465855878, guid: 1922292b857b0dd498af8430f69b408f, type: 3}
+  - {fileID: 39639146465855878, guid: b1917f0e721c66e42addd4dce60a1a46, type: 3}
+  ufoSpeed: 0.025
+  ufoSpawnDelay: 1.5

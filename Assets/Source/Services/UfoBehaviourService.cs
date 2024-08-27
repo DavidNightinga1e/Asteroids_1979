@@ -81,5 +81,13 @@ namespace ServiceLocators
 				view.SetPosition(position);
 			}
 		}
+
+		public void OnGameRestart()
+		{
+			foreach (UfoModel ufoModel in _models)
+			{
+				Object.Destroy(ufoModel.View.gameObject);
+			}
+		}
 	}
 }

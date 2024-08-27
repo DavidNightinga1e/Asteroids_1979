@@ -1,5 +1,4 @@
 ﻿using Source.Components;
-using Source.Views;
 using UnityEngine;
 
 namespace ServiceLocators
@@ -9,7 +8,8 @@ namespace ServiceLocators
 		private readonly GameOverScreenView _gameOverScreenView;
 
 		private const string ResultFormat =
-			"<size=56><b>Game Over!</b></size>\nScore: {0:000000}\n\n<size=36><i>press R to try again</i></size>";
+			"<size=56><b>Game Over!</b></size>\nScore: {0:000000}\n\n" +
+			"<size=36><i>press R to try again</i></size>";
 
 		public GameLoopService(GameOverScreenView gameOverScreenView)
 		{
@@ -35,8 +35,11 @@ namespace ServiceLocators
 			{
 				OnGameStarted();
 
+				// демонстрация альтернативного подхода
+				// не люблю такое за обфускацию usage в среде разработки 
 				ServiceLocator.GetService<LivesService>().ResetLives();
 				ServiceLocator.GetService<AsteroidBehaviourService>().OnGameRestart();
+				ServiceLocator.GetService<UfoBehaviourService>().OnGameRestart();
 				ServiceLocator.GetService<ScoreService>().OnGameRestart();
 			}
 		}

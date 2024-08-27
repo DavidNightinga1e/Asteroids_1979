@@ -32,8 +32,10 @@ namespace ServiceLocators
 
 		public void OnGameRestart()
 		{
-			foreach (AsteroidModel asteroid in _asteroids) 
+			foreach (AsteroidModel asteroid in _asteroids)
+			{
 				Object.Destroy(asteroid.View.gameObject);
+			}
 		}
 
 		public void Update()
