@@ -1,3 +1,10 @@
 # Asteroids_1979
 
-Controls: AWSD, JL (or QE) and Space
+#### Версия ТЗ для Кефира
+
+Управление:<br>
+W - вперед<br>
+A, D - вращение<br>
+Space, LMB - пулемет<br>
+L - лазер
+
